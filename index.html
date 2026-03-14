@@ -1,429 +1,447 @@
-<!-- Фоновая музыка -->
-<audio id="bg-music" loop>
-    <source src="https://raw.githubusercontent.com/ififcloud/vbh/main/action.mp3" type="audio/mpeg">
-</audio>
-
-<!-- Персонажи -->
-<section class="characters">
-    <h1>Персонажи</h1>
-    <div class="characters-grid">
-        <div class="character-item" data-sound="Элион">
-            <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/%D0%AD%D0%BB%D0%B8%D0%BE%D0%BD.png" alt="Элион">
-            <p>Элион</p>
-        </div>
-        <div class="character-item" data-sound="Мира">
-            <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/%D0%9C%D0%B8%D1%80%D0%B0.png" alt="Мира">
-            <p>Мира</p>
-        </div>
-        <div class="character-item" data-sound="Каэль">
-            <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/%D0%9A%D0%B0%D1%8D%D0%BB%D1%8C.jpg" alt="Каэль">
-            <p>Каэль</p>
-        </div>
-        <div class="character-item" data-sound="Вектор">
-            <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/%D0%92%D0%B5%D0%BA%D1%82%D0%BE%D1%80.jpg" alt="Вектор">
-            <p>Вектор</p>
-        </div>
-        <div class="character-item" data-sound="Нокс">
-            <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/%D0%9D%D0%BE%D0%BA%D1%81.jpeg" alt="Нокс">
-            <p>Нокс</p>
-        </div>
-    </div>
-</section>
-
-<!-- Локации -->
-<section class="locations">
-    <h1>Локации</h1>
-    <div class="locations-grid">
-        <div class="location-item" data-sound="action">
-            <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/action.jpg" alt="Action">
-            <p>Action</p>
-        </div>
-        <div class="location-item" data-sound="building">
-            <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/building.jpg" alt="Building">
-            <p>Building</p>
-        </div>
-        <div class="location-item" data-sound="heart">
-            <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/heart.jpg" alt="Heart">
-            <p>Heart</p>
-        </div>
-        <div class="location-item" data-sound="landscape">
-            <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/landscape.jpg" alt="Landscape">
-            <p>Landscape</p>
-        </div>
-        <div class="location-item" data-sound="texture">
-            <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/texture.jpg" alt="Texture">
-            <p>Texture</p>
-        </div>
-    </div>
-</section>
-
-<!-- Сказка -->
-<section class="story">
-    <h1>Наша Сказка</h1>
-    <div class="story-content" id="story-text">Загрузка...</div>
-</section>
-
-<!-- КНОПКА УПРАВЛЕНИЯ МУЗЫКОЙ -->
-<button id="music-toggle" class="music-btn" title="Включить/выключить музыку">
-    <span class="btn-icon">🔇</span>
-    <span class="btn-text">Музыка</span>
-</button>
-/* БАЗОВЫЕ СТИЛИ */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Georgia', serif;
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
-    color: #ffffff;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-/* СЕКЦИИ */
-section {
-    padding: 80px 20px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-h1 {
-    font-size: 3rem;
-    margin-bottom: 50px;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    color: #ffd700;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-}
-
-/* СЕТКИ */
-.characters-grid, .locations-grid {
-    display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 1400px;
-    width: 100%;
-}
-
-/* КАРТОЧКИ */
-.character-item, .location-item {
-    background: rgba(255, 255, 255, 0.08);
-    border: 2px solid rgba(255, 215, 0, 0.4);
-    border-radius: 20px;
-    padding: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    backdrop-filter: blur(10px);
-}
-
-.character-item:hover, .location-item:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-5px);
-}
-
-.character-item img {
-    width: 160px;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid #ffd700;
-    margin-bottom: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-}
-
-.location-item img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 15px;
-    border: 3px solid #ffd700;
-    margin-bottom: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-}
-
-.character-item p, .location-item p {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-}
-
-/* 🟢 ЗЕЛЁНОЕ СВЕЧЕНИЕ - РАБОТАЮЩЕЕ */
-.character-item.playing {
-    border: 4px solid #00ff88 !important;
-    box-shadow: 0 0 60px #00ff88, inset 0 0 30px rgba(0, 255, 136, 0.3) !important;
-    background: rgba(0, 255, 136, 0.25) !important;
-    animation: greenGlow 1s ease-in-out infinite !important;
-}
-
-.character-item.playing img {
-    border: 5px solid #00ff88 !important;
-    box-shadow: 0 0 40px #00ff88 !important;
-    filter: brightness(1.2) !important;
-}
-
-.location-item.playing {
-    border: 4px solid #00ff88 !important;
-    box-shadow: 0 0 60px #00ff88, inset 0 0 30px rgba(0, 255, 136, 0.3) !important;
-    background: rgba(0, 255, 136, 0.25) !important;
-    animation: greenGlow 1s ease-in-out infinite !important;
-}
-
-.location-item.playing img {
-    border: 5px solid #00ff88 !important;
-    box-shadow: 0 0 40px #00ff88 !important;
-    filter: brightness(1.2) !important;
-}
-
-@keyframes greenGlow {
-    0%, 100% {
-        box-shadow: 0 0 50px #00ff88, inset 0 0 25px rgba(0, 255, 136, 0.2) !important;
-    }
-    50% {
-        box-shadow: 0 0 90px #00ff88, inset 0 0 45px rgba(0, 255, 136, 0.4) !important;
-    }
-}
-
-/* КНОПКА МУЗЫКИ */
-.music-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    padding: 15px 30px;
-    background: rgba(255, 215, 0, 0.25);
-    border: 3px solid #ffd700;
-    border-radius: 30px;
-    color: #ffffff;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-}
-
-.music-btn:hover {
-    background: rgba(255, 215, 0, 0.4);
-    transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
-}
-
-.music-btn.active {
-    background: rgba(0, 255, 136, 0.3);
-    border-color: #00ff88;
-}
-
-.music-btn.active .btn-icon {
-    animation: musicPulse 1s ease-in-out infinite;
-}
-
-@keyframes musicPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-}
-
-.music-btn .btn-icon {
-    font-size: 1.5rem;
-}
-
-/* СКАЗКА */
-.story-content {
-    max-width: 900px;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 50px;
-    border-radius: 20px;
-    border: 2px solid rgba(255, 215, 0, 0.4);
-    line-height: 2;
-    font-size: 1.1rem;
-    white-space: pre-wrap;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-}
-
-/* АДАПТИВНОСТЬ */
-@media (max-width: 768px) {
-    h1 { font-size: 2rem; }
-    .character-item img { width: 120px; height: 120px; }
-    .music-btn .btn-text { display: none; }
-}
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Элементы
-    const bgMusic = document.getElementById('bg-music');
-    const musicToggle = document.getElementById('music-toggle');
-    const storyText = document.getElementById('story-text');
-    let currentAudio = null;
-    let isMusicPlaying = false;
-    
-    console.log('✅ Сайт загружен');
-    
-    // ========== КНОПКА МУЗЫКИ ==========
-    function updateButton() {
-        if (!musicToggle) return;
-        const icon = musicToggle.querySelector('.btn-icon');
-        if (isMusicPlaying) {
-            musicToggle.classList.add('active');
-            icon.textContent = '🎵';
-            musicToggle.title = 'Выключить музыку';
-        } else {
-            musicToggle.classList.remove('active');
-            icon.textContent = '🔇';
-            musicToggle.title = 'Включить музыку';
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наша Сказка</title>
+    <style>
+        /* БАЗОВЫЕ СТИЛИ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
-    
-    // Клик по кнопке
-    if (musicToggle) {
-        musicToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* СЕКЦИИ */
+        section {
+            padding: 80px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        /* СЕТКИ */
+        .characters-grid, .locations-grid {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        /* КАРТОЧКИ */
+        .character-item, .location-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 20px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .character-item:hover, .location-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .character-item img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ffd700;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .location-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid #ffd700;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .character-item p, .location-item p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* 🟢 ЗЕЛЁНОЕ СВЕЧЕНИЕ */
+        .character-item.playing {
+            border: 4px solid #00ff88 !important;
+            box-shadow: 0 0 60px #00ff88, inset 0 0 30px rgba(0, 255, 136, 0.3) !important;
+            background: rgba(0, 255, 136, 0.25) !important;
+            animation: greenGlow 1s ease-in-out infinite !important;
+        }
+
+        .character-item.playing img {
+            border: 5px solid #00ff88 !important;
+            box-shadow: 0 0 40px #00ff88 !important;
+            filter: brightness(1.2) !important;
+        }
+
+        .location-item.playing {
+            border: 4px solid #00ff88 !important;
+            box-shadow: 0 0 60px #00ff88, inset 0 0 30px rgba(0, 255, 136, 0.3) !important;
+            background: rgba(0, 255, 136, 0.25) !important;
+            animation: greenGlow 1s ease-in-out infinite !important;
+        }
+
+        .location-item.playing img {
+            border: 5px solid #00ff88 !important;
+            box-shadow: 0 0 40px #00ff88 !important;
+            filter: brightness(1.2) !important;
+        }
+
+        @keyframes greenGlow {
+            0%, 100% {
+                box-shadow: 0 0 50px #00ff88, inset 0 0 25px rgba(0, 255, 136, 0.2) !important;
+            }
+            50% {
+                box-shadow: 0 0 90px #00ff88, inset 0 0 45px rgba(0, 255, 136, 0.4) !important;
+            }
+        }
+
+        /* КНОПКА МУЗЫКИ */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 30px;
+            background: rgba(255, 215, 0, 0.25);
+            border: 3px solid #ffd700;
+            border-radius: 30px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .music-btn:hover {
+            background: rgba(255, 215, 0, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        .music-btn.active {
+            background: rgba(0, 255, 136, 0.3);
+            border-color: #00ff88;
+        }
+
+        .music-btn.active .btn-icon {
+            animation: musicPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .music-btn .btn-icon {
+            font-size: 1.5rem;
+        }
+
+        /* СКАЗКА */
+        .story-content {
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 50px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            line-height: 2;
+            font-size: 1.1rem;
+            white-space: pre-wrap;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .character-item img { width: 120px; height: 120px; }
+            .music-btn .btn-text { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Фоновая музыка -->
+    <audio id="bg-music" loop>
+        <source src="https://raw.githubusercontent.com/ififcloud/vbh/main/action.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Персонажи -->
+    <section class="characters">
+        <h1>Персонажи</h1>
+        <div class="characters-grid">
+            <div class="character-item" data-sound="Элион">
+                <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/%D0%AD%D0%BB%D0%B8%D0%BE%D0%BD.png" alt="Элион">
+                <p>Элион</p>
+            </div>
+            <div class="character-item" data-sound="Мира">
+                <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/%D0%9C%D0%B8%D1%80%D0%B0.png" alt="Мира">
+                <p>Мира</p>
+            </div>
+            <div class="character-item" data-sound="Каэль">
+                <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/%D0%9A%D0%B0%D1%8D%D0%BB%D1%8C.jpg" alt="Каэль">
+                <p>Каэль</p>
+            </div>
+            <div class="character-item" data-sound="Вектор">
+                <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/%D0%92%D0%B5%D0%BA%D1%82%D0%BE%D1%80.jpg" alt="Вектор">
+                <p>Вектор</p>
+            </div>
+            <div class="character-item" data-sound="Нокс">
+                <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/%D0%9D%D0%BE%D0%BA%D1%81.jpeg" alt="Нокс">
+                <p>Нокс</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Локации -->
+    <section class="locations">
+        <h1>Локации</h1>
+        <div class="locations-grid">
+            <div class="location-item" data-sound="action">
+                <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/action.jpg" alt="Action">
+                <p>Action</p>
+            </div>
+            <div class="location-item" data-sound="building">
+                <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/building.jpg" alt="Building">
+                <p>Building</p>
+            </div>
+            <div class="location-item" data-sound="heart">
+                <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/heart.jpg" alt="Heart">
+                <p>Heart</p>
+            </div>
+            <div class="location-item" data-sound="landscape">
+                <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/landscape.jpg" alt="Landscape">
+                <p>Landscape</p>
+            </div>
+            <div class="location-item" data-sound="texture">
+                <img src="https://raw.githubusercontent.com/ififcloud/vbh/main/texture.jpg" alt="Texture">
+                <p>Texture</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Сказка -->
+    <section class="story">
+        <h1>Наша Сказка</h1>
+        <div class="story-content" id="story-text">Загрузка...</div>
+    </section>
+
+    <!-- КНОПКА УПРАВЛЕНИЯ МУЗЫКОЙ -->
+    <button id="music-toggle" class="music-btn" title="Включить/выключить музыку">
+        <span class="btn-icon">🔇</span>
+        <span class="btn-text">Музыка</span>
+    </button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             
-            if (!bgMusic) {
-                console.error('❌ Аудио не найдено');
-                return;
+            // Элементы
+            const bgMusic = document.getElementById('bg-music');
+            const musicToggle = document.getElementById('music-toggle');
+            const storyText = document.getElementById('story-text');
+            let currentAudio = null;
+            let isMusicPlaying = false;
+            
+            console.log('✅ Сайт загружен');
+            
+            // ========== КНОПКА МУЗЫКИ ==========
+            function updateButton() {
+                if (!musicToggle) return;
+                const icon = musicToggle.querySelector('.btn-icon');
+                if (isMusicPlaying) {
+                    musicToggle.classList.add('active');
+                    icon.textContent = '🎵';
+                    musicToggle.title = 'Выключить музыку';
+                } else {
+                    musicToggle.classList.remove('active');
+                    icon.textContent = '🔇';
+                    musicToggle.title = 'Включить музыку';
+                }
             }
             
-            if (isMusicPlaying) {
-                bgMusic.pause();
-                isMusicPlaying = false;
-                console.log('⏸️ Музыка остановлена');
-            } else {
-                bgMusic.volume = 0.3;
-                bgMusic.play().then(() => {
-                    isMusicPlaying = true;
-                    console.log('▶️ Музыка играет');
-                }).catch(err => console.error('❌ Ошибка:', err));
+            // Клик по кнопке
+            if (musicToggle) {
+                musicToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    if (!bgMusic) {
+                        console.error('❌ Аудио не найдено');
+                        return;
+                    }
+                    
+                    if (isMusicPlaying) {
+                        bgMusic.pause();
+                        isMusicPlaying = false;
+                        console.log('⏸️ Музыка остановлена');
+                    } else {
+                        bgMusic.volume = 0.3;
+                        bgMusic.play().then(() => {
+                            isMusicPlaying = true;
+                            console.log('▶️ Музыка играет');
+                        }).catch(err => console.error('❌ Ошибка:', err));
+                    }
+                    updateButton();
+                });
+                console.log('✅ Кнопка музыки активна');
             }
-            updateButton();
-        });
-        console.log('✅ Кнопка музыки активна');
-    }
-    
-    // Автозапуск при первом клике
-    document.addEventListener('click', function firstClick() {
-        if (!isMusicPlaying && bgMusic) {
-            bgMusic.volume = 0.3;
-            bgMusic.play().then(() => {
-                isMusicPlaying = true;
-                updateButton();
-                console.log('▶️ Автостарт музыки');
-            }).catch(err => console.log('️ Автостарт заблокирован'));
-        }
-        document.removeEventListener('click', firstClick);
-    }, { once: true });
-    
-    // ========== ЗВУКИ И СВЕЧЕНИЕ ==========
-    function playSound(soundName, element) {
-        console.log('🎵 Звук:', soundName);
-        
-        // Убираем свечение со всех элементов
-        document.querySelectorAll('.playing').forEach(el => {
-            el.classList.remove('playing');
-            console.log('❌ Убрано свечение');
-        });
-        
-        // Останавливаем предыдущий звук
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-        }
-        
-        // Создаём новый звук
-        const baseUrl = 'https://raw.githubusercontent.com/ififcloud/vbh/main/';
-        const audioUrl = baseUrl + encodeURIComponent(soundName) + '.mp3';
-        
-        currentAudio = new Audio(audioUrl);
-        currentAudio.volume = 0.7;
-        
-        // Воспроизводим
-        currentAudio.play().then(() => {
-            // ДОБАВЛЯЕМ ЗЕЛЁНОЕ СВЕЧЕНИЕ
-            element.classList.add('playing');
-            console.log('✅ ДОБАВЛЕНО СВЕЧЕНИЕ!', element);
-            console.log('✅ Классы:', element.classList);
-        }).catch(error => {
-            console.error('❌ Ошибка воспроизведения:', error);
-        });
-        
-        // Когда звук закончился
-        currentAudio.addEventListener('ended', function() {
-            element.classList.remove('playing');
-            currentAudio = null;
-            console.log('🏁 Звук завершён, свечение убрано');
-        });
-        
-        // Обработка ошибок
-        currentAudio.addEventListener('error', function(e) {
-            console.error('❌ Ошибка загрузки аудио:', e);
-            element.classList.remove('playing');
-        });
-    }
-    
-    // Обработчики для персонажей
-    document.querySelectorAll('.character-item').forEach(function(item) {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const soundName = this.getAttribute('data-sound');
-            if (soundName) {
-                playSound(soundName, this);
+            
+            // Автозапуск при первом клике
+            document.addEventListener('click', function firstClick() {
+                if (!isMusicPlaying && bgMusic) {
+                    bgMusic.volume = 0.3;
+                    bgMusic.play().then(() => {
+                        isMusicPlaying = true;
+                        updateButton();
+                        console.log('▶️ Автостарт музыки');
+                    }).catch(err => console.log('️ Автостарт заблокирован'));
+                }
+                document.removeEventListener('click', firstClick);
+            }, { once: true });
+            
+            // ========== ЗВУКИ И СВЕЧЕНИЕ ==========
+            function playSound(soundName, element) {
+                console.log('🎵 Звук:', soundName);
+                
+                // Убираем свечение со всех элементов
+                document.querySelectorAll('.playing').forEach(el => {
+                    el.classList.remove('playing');
+                    console.log('❌ Убрано свечение');
+                });
+                
+                // Останавливаем предыдущий звук
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                }
+                
+                // Создаём новый звук
+                const baseUrl = 'https://raw.githubusercontent.com/ififcloud/vbh/main/';
+                const audioUrl = baseUrl + encodeURIComponent(soundName) + '.mp3';
+                
+                currentAudio = new Audio(audioUrl);
+                currentAudio.volume = 0.7;
+                
+                // Воспроизводим
+                currentAudio.play().then(() => {
+                    // ДОБАВЛЯЕМ ЗЕЛЁНОЕ СВЕЧЕНИЕ
+                    element.classList.add('playing');
+                    console.log('✅ ДОБАВЛЕНО СВЕЧЕНИЕ!', element);
+                    console.log('✅ Классы:', element.classList);
+                }).catch(error => {
+                    console.error('❌ Ошибка воспроизведения:', error);
+                });
+                
+                // Когда звук закончился
+                currentAudio.addEventListener('ended', function() {
+                    element.classList.remove('playing');
+                    currentAudio = null;
+                    console.log('🏁 Звук завершён, свечение убрано');
+                });
+                
+                // Обработка ошибок
+                currentAudio.addEventListener('error', function(e) {
+                    console.error('❌ Ошибка загрузки аудио:', e);
+                    element.classList.remove('playing');
+                });
             }
-        });
-    });
-    console.log('✅ Персонажи активны:', document.querySelectorAll('.character-item').length);
-    
-    // Обработчики для локаций
-    document.querySelectorAll('.location-item').forEach(function(item) {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const soundName = this.getAttribute('data-sound');
-            if (soundName) {
-                playSound(soundName, this);
-            }
-        });
-    });
-    console.log('✅ Локации активны:', document.querySelectorAll('.location-item').length);
-    
-    // ========== ЗАГРУЗКА СКАЗКИ ==========
-    function loadStory() {
-        fetch('https://raw.githubusercontent.com/ififcloud/vbh/main/01_Lore.txt')
-            .then(response => {
-                if (!response.ok) throw new Error('Файл не найден');
-                return response.text();
-            })
-            .then(text => {
-                storyText.textContent = text;
-                console.log('✅ Сказка загружена');
-            })
-            .catch(error => {
-                console.error('❌ Ошибка загрузки сказки:', error);
-                storyText.textContent = 'Текст сказки загружается...';
+            
+            // Обработчики для персонажей
+            document.querySelectorAll('.character-item').forEach(function(item) {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const soundName = this.getAttribute('data-sound');
+                    if (soundName) {
+                        playSound(soundName, this);
+                    }
+                });
             });
-    }
-    loadStory();
-    
-    // ========== ФИНАЛ ==========
-    console.log('=================================');
-    console.log('✨ САЙТ ГОТОВ К РАБОТЕ ✨');
-    console.log('=================================');
-    console.log('🎵 Музыка:', bgMusic ? 'Подключена' : 'Нет');
-    console.log('🔘 Кнопка:', musicToggle ? 'Работает' : 'Ошибка');
-    console.log('💚 Свечение:', 'Активно');
-    console.log('👥 Персонажей:', document.querySelectorAll('.character-item').length);
-    console.log('🗺️ Локаций:', document.querySelectorAll('.location-item').length);
-    console.log('=================================');
-    console.log('💡 КЛИКНИТЕ НА ПЕРСОНАЖА - БУДЕТ ЗЕЛЁНОЕ СВЕЧЕНИЕ!');
-    console.log('=================================');
-});
+            console.log('✅ Персонажи активны:', document.querySelectorAll('.character-item').length);
+            
+            // Обработчики для локаций
+            document.querySelectorAll('.location-item').forEach(function(item) {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const soundName = this.getAttribute('data-sound');
+                    if (soundName) {
+                        playSound(soundName, this);
+                    }
+                });
+            });
+            console.log('✅ Локации активны:', document.querySelectorAll('.location-item').length);
+            
+            // ========== ЗАГРУЗКА СКАЗКИ ==========
+            function loadStory() {
+                fetch('https://raw.githubusercontent.com/ififcloud/vbh/main/01_Lore.txt')
+                    .then(response => {
+                        if (!response.ok) throw new Error('Файл не найден');
+                        return response.text();
+                    })
+                    .then(text => {
+                        storyText.textContent = text;
+                        console.log('✅ Сказка загружена');
+                    })
+                    .catch(error => {
+                        console.error('❌ Ошибка загрузки сказки:', error);
+                        storyText.textContent = 'Текст сказки загружается...';
+                    });
+            }
+            loadStory();
+            
+            // ========== ФИНАЛ ==========
+            console.log('=================================');
+            console.log('✨ САЙТ ГОТОВ К РАБОТЕ ✨');
+            console.log('=================================');
+            console.log('🎵 Музыка:', bgMusic ? 'Подключена' : 'Нет');
+            console.log('🔘 Кнопка:', musicToggle ? 'Работает' : 'Ошибка');
+            console.log('💚 Свечение:', 'Активно');
+            console.log('👥 Персонажей:', document.querySelectorAll('.character-item').length);
+            console.log('🗺️ Локаций:', document.querySelectorAll('.location-item').length);
+            console.log('=================================');
+            console.log('💡 КЛИКНИТЕ НА ПЕРСОНАЖА - БУДЕТ ЗЕЛЁНОЕ СВЕЧЕНИЕ!');
+            console.log('=================================');
+        });
+    </script>
+
+</body>
+</html>
