@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Наша Сказка</title>
     <style>
-        /* БАЗОВЫЕ СТИЛИ */
         * {
             margin: 0;
             padding: 0;
@@ -14,13 +13,17 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
+            background-image: 
+                linear-gradient(rgba(10, 10, 26, 0.85), rgba(10, 10, 26, 0.9)),
+                url('https://raw.githubusercontent.com/ififcloud/vbh/main/%D1%84%D0%BE%D0%BD.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* СЕКЦИИ */
         section {
             padding: 80px 20px;
             min-height: 100vh;
@@ -36,32 +39,29 @@
             text-transform: uppercase;
             letter-spacing: 4px;
             color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
         }
 
-        /* СЕТКИ */
-        .characters-grid, .locations-grid {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 1400px;
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
             width: 100%;
         }
 
-        /* КАРТОЧКИ */
-        .character-item, .location-item {
+        .character-item {
             background: rgba(255, 255, 255, 0.08);
             border: 2px solid rgba(255, 215, 0, 0.4);
             border-radius: 20px;
-            padding: 25px;
+            padding: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
             backdrop-filter: blur(10px);
         }
 
-        .character-item:hover, .location-item:hover {
+        .character-item:hover {
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-5px);
         }
@@ -76,6 +76,39 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
         }
 
+        .character-item p {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .locations-grid {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .location-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 20px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            min-width: 200px;
+        }
+
+        .location-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
         .location-item img {
             width: 100%;
             height: 180px;
@@ -86,11 +119,12 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .character-item p, .location-item p {
+        .location-item p {
             font-size: 1.2rem;
             font-weight: bold;
             color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         /* 🟢 ЗЕЛЁНОЕ СВЕЧЕНИЕ */
@@ -129,7 +163,19 @@
             }
         }
 
-        /* КНОПКА МУЗЫКИ */
+        .story-content {
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 60px 50px;
+            border-radius: 25px;
+            border: 3px solid rgba(255, 215, 0, 0.4);
+            line-height: 2.2;
+            font-size: 1.15rem;
+            white-space: pre-wrap;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+        }
+
         .music-btn {
             position: fixed;
             bottom: 30px;
@@ -153,7 +199,6 @@
         .music-btn:hover {
             background: rgba(255, 215, 0, 0.4);
             transform: scale(1.05);
-            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
         }
 
         .music-btn.active {
@@ -170,41 +215,27 @@
             50% { transform: scale(1.3); }
         }
 
-        .music-btn .btn-icon {
-            font-size: 1.5rem;
-        }
-
-        /* СКАЗКА */
-        .story-content {
-            max-width: 900px;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 50px;
-            border-radius: 20px;
-            border: 2px solid rgba(255, 215, 0, 0.4);
-            line-height: 2;
-            font-size: 1.1rem;
-            white-space: pre-wrap;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        /* АДАПТИВНОСТЬ */
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
             .character-item img { width: 120px; height: 120px; }
             .music-btn .btn-text { display: none; }
         }
+
+        @media (max-width: 480px) {
+            .characters-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .locations-grid { flex-direction: column; align-items: center; }
+            .location-item { min-width: 260px; max-width: 320px; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Фоновая музыка -->
     <audio id="bg-music" loop>
         <source src="https://raw.githubusercontent.com/ififcloud/vbh/main/action.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Персонажи -->
-    <section class="characters">
+    <!-- БЛОК 1: ПЕРСОНАЖИ -->
+    <section class="characters" id="characters">
         <h1>Персонажи</h1>
         <div class="characters-grid">
             <div class="character-item" data-sound="Элион">
@@ -230,8 +261,8 @@
         </div>
     </section>
 
-    <!-- Локации -->
-    <section class="locations">
+    <!-- БЛОК 2: ЛОКАЦИИ -->
+    <section class="locations" id="locations">
         <h1>Локации</h1>
         <div class="locations-grid">
             <div class="location-item" data-sound="action">
@@ -257,180 +288,118 @@
         </div>
     </section>
 
-    <!-- Сказка -->
-    <section class="story">
+    <!-- БЛОК 3: СКАЗКА -->
+    <section class="story" id="story">
         <h1>Наша Сказка</h1>
-        <div class="story-content" id="story-text">Загрузка...</div>
+        <div class="story-content" id="story-text">Загрузка текста сказки...</div>
     </section>
 
-    <!-- КНОПКА УПРАВЛЕНИЯ МУЗЫКОЙ -->
-    <button id="music-toggle" class="music-btn" title="Включить/выключить музыку">
+    <!-- КНОПКА МУЗЫКИ -->
+    <button id="music-toggle" class="music-btn">
         <span class="btn-icon">🔇</span>
         <span class="btn-text">Музыка</span>
     </button>
 
-    <!-- JAVASCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
-            // Элементы
             const bgMusic = document.getElementById('bg-music');
             const musicToggle = document.getElementById('music-toggle');
             const storyText = document.getElementById('story-text');
             let currentAudio = null;
             let isMusicPlaying = false;
-            
-            console.log('✅ Сайт загружен');
-            
-            // ========== КНОПКА МУЗЫКИ ==========
+
+            console.log('✨ Сайт "Наша Сказка" загружен');
+
+            // КНОПКА МУЗЫКИ
             function updateButton() {
                 if (!musicToggle) return;
                 const icon = musicToggle.querySelector('.btn-icon');
                 if (isMusicPlaying) {
                     musicToggle.classList.add('active');
                     icon.textContent = '🎵';
-                    musicToggle.title = 'Выключить музыку';
                 } else {
                     musicToggle.classList.remove('active');
                     icon.textContent = '🔇';
-                    musicToggle.title = 'Включить музыку';
                 }
             }
-            
-            // Клик по кнопке
+
             if (musicToggle) {
-                musicToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    if (!bgMusic) {
-                        console.error('❌ Аудио не найдено');
-                        return;
-                    }
-                    
+                musicToggle.addEventListener('click', function() {
+                    if (!bgMusic) return;
                     if (isMusicPlaying) {
                         bgMusic.pause();
                         isMusicPlaying = false;
-                        console.log('⏸️ Музыка остановлена');
                     } else {
                         bgMusic.volume = 0.3;
-                        bgMusic.play().then(() => {
-                            isMusicPlaying = true;
-                            console.log('▶️ Музыка играет');
-                        }).catch(err => console.error('❌ Ошибка:', err));
+                        bgMusic.play();
+                        isMusicPlaying = true;
                     }
                     updateButton();
                 });
-                console.log('✅ Кнопка музыки активна');
             }
-            
-            // Автозапуск при первом клике
+
             document.addEventListener('click', function firstClick() {
                 if (!isMusicPlaying && bgMusic) {
                     bgMusic.volume = 0.3;
-                    bgMusic.play().then(() => {
-                        isMusicPlaying = true;
-                        updateButton();
-                        console.log('▶️ Автостарт музыки');
-                    }).catch(err => console.log('️ Автостарт заблокирован'));
+                    bgMusic.play();
+                    isMusicPlaying = true;
+                    updateButton();
                 }
                 document.removeEventListener('click', firstClick);
             }, { once: true });
-            
-            // ========== ЗВУКИ И СВЕЧЕНИЕ ==========
+
+            // ЗВУКИ И ЗЕЛЁНОЕ СВЕЧЕНИЕ
             function playSound(soundName, element) {
-                console.log('🎵 Звук:', soundName);
+                document.querySelectorAll('.playing').forEach(el => el.classList.remove('playing'));
                 
-                // Убираем свечение со всех элементов
-                document.querySelectorAll('.playing').forEach(el => {
-                    el.classList.remove('playing');
-                    console.log('❌ Убрано свечение');
-                });
-                
-                // Останавливаем предыдущий звук
                 if (currentAudio) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
                 }
                 
-                // Создаём новый звук
-                const baseUrl = 'https://raw.githubusercontent.com/ififcloud/vbh/main/';
-                const audioUrl = baseUrl + encodeURIComponent(soundName) + '.mp3';
-                
-                currentAudio = new Audio(audioUrl);
+                const url = 'https://raw.githubusercontent.com/ififcloud/vbh/main/' + encodeURIComponent(soundName) + '.mp3';
+                currentAudio = new Audio(url);
                 currentAudio.volume = 0.7;
                 
-                // Воспроизводим
                 currentAudio.play().then(() => {
-                    // ДОБАВЛЯЕМ ЗЕЛЁНОЕ СВЕЧЕНИЕ
                     element.classList.add('playing');
-                    console.log('✅ ДОБАВЛЕНО СВЕЧЕНИЕ!', element);
-                    console.log('✅ Классы:', element.classList);
+                    console.log('✅ Зелёное свечение включено!');
                 }).catch(error => {
-                    console.error('❌ Ошибка воспроизведения:', error);
+                    console.error('❌ Ошибка:', error);
                 });
                 
-                // Когда звук закончился
-                currentAudio.addEventListener('ended', function() {
+                currentAudio.addEventListener('ended', () => {
                     element.classList.remove('playing');
                     currentAudio = null;
-                    console.log('🏁 Звук завершён, свечение убрано');
-                });
-                
-                // Обработка ошибок
-                currentAudio.addEventListener('error', function(e) {
-                    console.error('❌ Ошибка загрузки аудио:', e);
-                    element.classList.remove('playing');
                 });
             }
-            
-            // Обработчики для персонажей
-            document.querySelectorAll('.character-item').forEach(function(item) {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const soundName = this.getAttribute('data-sound');
-                    if (soundName) {
-                        playSound(soundName, this);
-                    }
+
+            // ПЕРСОНАЖИ
+            document.querySelectorAll('.character-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const sound = this.getAttribute('data-sound');
+                    if (sound) playSound(sound, this);
                 });
             });
-            console.log('✅ Персонажи активны:', document.querySelectorAll('.character-item').length);
-            
-            // Обработчики для локаций
-            document.querySelectorAll('.location-item').forEach(function(item) {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const soundName = this.getAttribute('data-sound');
-                    if (soundName) {
-                        playSound(soundName, this);
-                    }
+
+            // ЛОКАЦИИ
+            document.querySelectorAll('.location-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const sound = this.getAttribute('data-sound');
+                    if (sound) playSound(sound, this);
                 });
             });
-            console.log('✅ Локации активны:', document.querySelectorAll('.location-item').length);
-            
-            // ========== ЗАГРУЗКА СКАЗКИ ==========
-            function loadStory() {
-                fetch('https://raw.githubusercontent.com/ififcloud/vbh/main/01_Lore.txt')
-                    .then(response => {
-                        if (!response.ok) throw new Error('Файл не найден');
-                        return response.text();
-                    })
-                    .then(text => {
-                        storyText.textContent = text;
-                        console.log('✅ Сказка загружена');
-                    })
-                    .catch(error => {
-                        console.error('❌ Ошибка загрузки сказки:', error);
-                        storyText.textContent = 'Текст сказки загружается...';
-                    });
-            }
-            loadStory();
-            
-            // ========== ФИНАЛ ==========
-            console.log('=================================');
-            console.log('✨ САЙТ ГОТОВ К РАБОТЕ ✨');
+
+            // СКАЗКА
+            fetch('https://raw.githubusercontent.com/ififcloud/vbh/main/01_Lore.txt')
+                .then(response => response.text())
+                .then(text => {
+                    storyText.textContent = text;
+                })
+                .catch(error => {
+                    storyText.textContent = 'Ошибка загрузки текста...';
+                });
+
             console.log('=================================');
             console.log('🎵 Музыка:', bgMusic ? 'Подключена' : 'Нет');
             console.log('🔘 Кнопка:', musicToggle ? 'Работает' : 'Ошибка');
@@ -438,7 +407,7 @@
             console.log('👥 Персонажей:', document.querySelectorAll('.character-item').length);
             console.log('🗺️ Локаций:', document.querySelectorAll('.location-item').length);
             console.log('=================================');
-            console.log('💡 КЛИКНИТЕ НА ПЕРСОНАЖА - БУДЕТ ЗЕЛЁНОЕ СВЕЧЕНИЕ!');
+            console.log('💡 КЛИКНИТЕ НА ПЕРСОНАЖА - БУДЕТ СВЕЧЕНИЕ!');
             console.log('=================================');
         });
     </script>
