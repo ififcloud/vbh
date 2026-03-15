@@ -5,32 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Наша Сказка</title>
     <style>
-        /* ============================================
-           БАЗОВЫЕ СТИЛИ
-           ============================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            line-height: 1.6;
-            color: #ffffff;
-            background-image: 
-                linear-gradient(rgba(10, 10, 26, 0.85), rgba(10, 10, 26, 0.9)),
+            font-family: 'Georgia', serif;
+            background: linear-gradient(rgba(10, 10, 26, 0.85), rgba(10, 10, 26, 0.9)),
                 url('https://raw.githubusercontent.com/ififcloud/vbh/main/%D1%84%D0%BE%D0%BD.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            background-repeat: no-repeat;
+            color: #fff;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         section {
@@ -40,34 +29,15 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
         }
 
         h1 {
             font-size: 3rem;
-            text-align: center;
             margin-bottom: 50px;
             text-transform: uppercase;
             letter-spacing: 4px;
             color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.4), 2px 2px 4px rgba(0, 0, 0, 0.9);
-            position: relative;
-            z-index: 2;
-        }
-
-        h1::after {
-            content: '';
-            display: block;
-            width: 120px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.8), rgba(255, 215, 0, 1), rgba(255, 215, 0, 0.8), transparent);
-            margin: 20px auto 0;
-            border-radius: 2px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-        }
-
-        .characters {
-            background: linear-gradient(180deg, rgba(15, 15, 35, 0.7) 0%, rgba(15, 15, 35, 0.5) 100%);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
         }
 
         .characters-grid {
@@ -76,66 +46,6 @@
             gap: 40px;
             max-width: 1200px;
             width: 100%;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .character-item {
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 215, 0, 0.4);
-            border-radius: 20px;
-            padding: 30px 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 215, 0, 0.05);
-            position: relative;
-            /* Важно: не обрезаем контент, чтобы свечение было видно */
-            overflow: visible; 
-        }
-
-        .character-item:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 215, 0, 0.7);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 30px rgba(255, 215, 0, 0.1);
-        }
-
-        .character-item img {
-            width: 160px;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid rgba(255, 215, 0, 0.8);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 215, 0, 0.2);
-            transition: all 0.3s ease;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .character-item:hover img {
-            border-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.4), inset 0 0 30px rgba(255, 215, 0, 0.3);
-            filter: brightness(1.15) saturate(1.15);
-            transform: scale(1.05);
-        }
-
-        .character-item p {
-            font-size: 1.3rem;
-            font-weight: bold;
-            text-align: center;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 1px 1px 3px rgba(0, 0, 0, 0.9);
-            letter-spacing: 1.5px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .locations {
-            background: linear-gradient(180deg, rgba(15, 15, 35, 0.5) 0%, rgba(15, 15, 35, 0.7) 100%);
         }
 
         .locations-grid {
@@ -145,32 +55,31 @@
             justify-content: center;
             max-width: 1400px;
             width: 100%;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
         }
 
-        .location-item {
+        .character-item, .location-item {
             background: rgba(255, 255, 255, 0.08);
             border: 2px solid rgba(255, 215, 0, 0.4);
             border-radius: 20px;
-            padding: 20px;
+            padding: 30px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             text-align: center;
             backdrop-filter: blur(10px);
-            min-width: 200px;
-            max-width: 240px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 215, 0, 0.05);
-            position: relative;
-            overflow: visible;
         }
 
-        .location-item:hover {
+        .character-item:hover, .location-item:hover {
             background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 215, 0, 0.7);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 30px rgba(255, 215, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .character-item img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ffd700;
+            margin-bottom: 15px;
         }
 
         .location-item img {
@@ -178,98 +87,39 @@
             height: 180px;
             object-fit: cover;
             border-radius: 15px;
-            border: 3px solid rgba(255, 215, 0, 0.8);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
+            border: 3px solid #ffd700;
             margin-bottom: 15px;
-            position: relative;
-            z-index: 2;
         }
 
-        .location-item:hover img {
-            border-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.4);
-            filter: brightness(1.15) saturate(1.2);
-            transform: scale(1.05);
-        }
-
-        .location-item p {
+        .character-item p, .location-item p {
             font-size: 1.2rem;
             font-weight: bold;
-            text-align: center;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 1px 1px 3px rgba(0, 0, 0, 0.9);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 2;
+            color: #fff;
         }
 
-        /* ============================================
-           🟢 ЗЕЛЁНОЕ СВЕЧЕНИЕ (ИСПРАВЛЕННОЕ)
-           ============================================ */
-        
-        .character-item.playing,
-        .location-item.playing {
+        /* 🟢 ЗЕЛЁНОЕ СВЕЧЕНИЕ - ПРОСТОЕ И РАБОЧЕЕ */
+        .character-item.playing, .location-item.playing {
             border: 4px solid #00ff88 !important;
-            background: rgba(0, 255, 136, 0.2) !important;
-            overflow: visible !important;
-            z-index: 10 !important;
+            box-shadow: 0 0 50px #00ff88, 0 0 100px #00ff88 !important;
+            background: rgba(0, 255, 136, 0.3) !important;
             transform: scale(1.05) !important;
-            /* Анимация пульсации */
-            animation: greenPulse 1.2s infinite alternate !important;
         }
 
-        .character-item.playing img,
-        .location-item.playing img {
+        .character-item.playing img, .location-item.playing img {
             border: 5px solid #00ff88 !important;
-            box-shadow: 0 0 30px #00ff88, 0 0 60px #00ff88, inset 0 0 20px rgba(0, 255, 136, 0.4) !important;
-            filter: brightness(1.3) contrast(1.1) !important;
-            transform: scale(1.05) !important;
-        }
-
-        .character-item.playing p,
-        .location-item.playing p {
-            color: #ffffff !important;
-            text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88 !important;
-        }
-
-        @keyframes greenPulse {
-            0% {
-                box-shadow: 0 0 40px #00ff88, 0 0 80px rgba(0, 255, 136, 0.4), inset 0 0 20px rgba(0, 255, 136, 0.2);
-            }
-            100% {
-                box-shadow: 0 0 70px #00ff88, 0 0 120px rgba(0, 255, 136, 0.6), inset 0 0 40px rgba(0, 255, 136, 0.4);
-            }
-        }
-
-        .story {
-            background: linear-gradient(180deg, rgba(15, 15, 35, 0.7) 0%, rgba(10, 10, 26, 0.9) 100%);
-            min-height: auto;
-            padding: 100px 20px;
+            box-shadow: 0 0 40px #00ff88 !important;
         }
 
         .story-content {
             max-width: 900px;
-            width: 100%;
             background: rgba(255, 255, 255, 0.08);
             padding: 60px 50px;
             border-radius: 25px;
             border: 3px solid rgba(255, 215, 0, 0.4);
-            line-height: 2.2;
-            font-size: 1.15rem;
+            line-height: 2;
+            font-size: 1.1rem;
             white-space: pre-wrap;
             backdrop-filter: blur(10px);
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), inset 0 0 50px rgba(255, 215, 0, 0.05);
-            position: relative;
-            z-index: 1;
-            color: #ffffff;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
-        }
-
-        .story-content p {
-            margin-bottom: 25px;
-            padding: 0 10px;
         }
 
         .music-btn {
@@ -278,9 +128,9 @@
             right: 30px;
             padding: 15px 30px;
             background: rgba(255, 215, 0, 0.25);
-            border: 3px solid rgba(255, 215, 0, 0.7);
+            border: 3px solid #ffd700;
             border-radius: 30px;
-            color: #ffffff;
+            color: #fff;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
@@ -288,152 +138,37 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
-            outline: none;
         }
 
         .music-btn:hover {
             background: rgba(255, 215, 0, 0.4);
-            border-color: rgba(255, 215, 0, 1);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 35px rgba(255, 215, 0, 0.5);
-        }
-
-        .music-btn:active {
-            transform: translateY(0) scale(0.98);
         }
 
         .music-btn.active {
             background: rgba(0, 255, 136, 0.3);
-            border-color: rgba(0, 255, 136, 0.7);
+            border-color: #00ff88;
         }
 
         .music-btn.active .btn-icon {
-            animation: musicPulse 1s ease-in-out infinite;
+            animation: pulse 1s infinite;
         }
 
-        .music-btn .btn-icon {
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
         }
 
-        @keyframes musicPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.8; }
-        }
-
-        .music-btn.muted {
-            background: rgba(255, 80, 80, 0.25);
-            border-color: rgba(255, 80, 80, 0.7);
-        }
-
-        .music-btn.muted:hover {
-            background: rgba(255, 80, 80, 0.4);
-            border-color: rgba(255, 80, 80, 1);
-            box-shadow: 0 8px 35px rgba(255, 80, 80, 0.5);
-        }
-
-        @media screen and (max-width: 1024px) {
-            h1 { font-size: 2.5rem; }
-            .characters-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 30px; }
-            .character-item img { width: 140px; height: 140px; }
-            .locations-grid { gap: 20px; }
-            .location-item { min-width: 180px; max-width: 210px; }
-            .location-item img { height: 160px; }
-        }
-
-        @media screen and (max-width: 768px) {
-            h1 { font-size: 2rem; margin-bottom: 40px; letter-spacing: 3px; }
-            section { padding: 60px 15px; }
-            .characters-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 25px; }
-            .character-item { padding: 20px 15px; }
-            .character-item img { width: 120px; height: 120px; border-width: 3px; }
-            .character-item p { font-size: 1.1rem; }
-            .locations-grid { gap: 15px; }
-            .location-item { min-width: 160px; max-width: 190px; padding: 15px; }
-            .location-item img { height: 140px; }
-            .location-item p { font-size: 1rem; }
-            .story-content { padding: 45px 30px; font-size: 1.05rem; line-height: 2; }
-            .music-btn { bottom: 20px; right: 20px; padding: 12px 20px; }
-        }
-
-        @media screen and (max-width: 480px) {
-            h1 { font-size: 1.7rem; letter-spacing: 2px; }
-            h1::after { width: 90px; height: 2px; }
-            section { padding: 50px 12px; }
-            .characters-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
-            .character-item { padding: 16px 12px; border-radius: 16px; }
-            .character-item img { width: 110px; height: 110px; margin-bottom: 12px; }
-            .character-item p { font-size: 0.95rem; letter-spacing: 1px; }
-            .locations-grid { flex-direction: column; align-items: center; }
-            .location-item { min-width: 260px; max-width: 320px; width: 100%; }
-            .location-item img { height: 180px; }
-            .story-content { padding: 35px 22px; font-size: 0.98rem; line-height: 1.95; border-width: 2px; }
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .character-item img { width: 120px; height: 120px; }
             .music-btn .btn-text { display: none; }
-            .music-btn .btn-icon { font-size: 1.6rem; }
         }
 
-        ::-webkit-scrollbar { width: 12px; }
-        ::-webkit-scrollbar-track { background: rgba(10, 10, 26, 0.9); }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, rgba(255, 215, 0, 0.8), rgba(255, 140, 0, 0.8));
-            border-radius: 6px;
-            border: 2px solid rgba(10, 10, 26, 0.9);
-            box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+        @media (max-width: 480px) {
+            .characters-grid { grid-template-columns: repeat(2, 1fr); }
+            .locations-grid { flex-direction: column; }
+            .location-item { min-width: 260px; }
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, rgba(255, 140, 0, 0.9), rgba(255, 215, 0, 0.9));
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-        }
-
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 200px;
-            font-size: 1.25rem;
-            color: rgba(255, 215, 0, 0.9);
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-            animation: loadingPulse 1.5s infinite;
-        }
-        @keyframes loadingPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-        .characters::after, .locations::after {
-            content: '✦';
-            position: absolute;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.8rem;
-            color: rgba(255, 215, 0, 0.4);
-            animation: starPulse 4s ease-in-out infinite;
-            z-index: 2;
-        }
-        @keyframes starPulse {
-            0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
-            50% { opacity: 0.8; transform: translateX(-50%) scale(1.2); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(35px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .character-item, .location-item {
-            animation: fadeInUp 0.8s ease forwards;
-            opacity: 0;
-        }
-        .character-item:nth-child(1) { animation-delay: 0.1s; }
-        .character-item:nth-child(2) { animation-delay: 0.2s; }
-        .character-item:nth-child(3) { animation-delay: 0.3s; }
-        .character-item:nth-child(4) { animation-delay: 0.4s; }
-        .character-item:nth-child(5) { animation-delay: 0.5s; }
-        .location-item:nth-child(1) { animation-delay: 0.1s; }
-        .location-item:nth-child(2) { animation-delay: 0.2s; }
-        .location-item:nth-child(3) { animation-delay: 0.3s; }
-        .location-item:nth-child(4) { animation-delay: 0.4s; }
-        .location-item:nth-child(5) { animation-delay: 0.5s; }
     </style>
 </head>
 <body>
@@ -442,7 +177,7 @@
         <source src="https://raw.githubusercontent.com/ififcloud/vbh/main/action.mp3" type="audio/mpeg">
     </audio>
 
-    <section class="characters" id="characters">
+    <section class="characters">
         <h1>Персонажи</h1>
         <div class="characters-grid">
             <div class="character-item" data-sound="Элион">
@@ -468,7 +203,7 @@
         </div>
     </section>
 
-    <section class="locations" id="locations">
+    <section class="locations">
         <h1>Локации</h1>
         <div class="locations-grid">
             <div class="location-item" data-sound="action">
@@ -494,158 +229,132 @@
         </div>
     </section>
 
-    <section class="story" id="story">
+    <section class="story">
         <h1>Наша Сказка</h1>
-        <div class="story-content" id="story-text">Загрузка текста сказки...</div>
+        <div class="story-content" id="story-text">Загрузка...</div>
     </section>
 
-    <button id="music-toggle" class="music-btn" title="Включить/выключить музыку">
+    <button id="music-toggle" class="music-btn">
         <span class="btn-icon">🔇</span>
         <span class="btn-text">Музыка</span>
     </button>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
-            console.log('✨ Сайт "Наша Сказка" загружен');
-            
             const bgMusic = document.getElementById('bg-music');
             const musicToggle = document.getElementById('music-toggle');
             const storyText = document.getElementById('story-text');
             let currentAudio = null;
             let isMusicPlaying = false;
-            let glowTimeout = null; // Таймер для свечения
-            
+            let glowTimer = null;
+
+            console.log('✅ Сайт загружен!');
+
             // КНОПКА МУЗЫКИ
             function updateButton() {
                 if (!musicToggle) return;
                 const icon = musicToggle.querySelector('.btn-icon');
                 if (isMusicPlaying) {
                     musicToggle.classList.add('active');
-                    musicToggle.classList.remove('muted');
                     icon.textContent = '🎵';
                 } else {
                     musicToggle.classList.remove('active');
-                    musicToggle.classList.add('muted');
                     icon.textContent = '🔇';
                 }
             }
-            
-            function playMusic() {
-                if (!bgMusic) return;
-                bgMusic.volume = 0.3;
-                bgMusic.play().then(() => {
+
+            if (musicToggle) {
+                musicToggle.addEventListener('click', function() {
+                    if (!bgMusic) return;
+                    if (isMusicPlaying) {
+                        bgMusic.pause();
+                        isMusicPlaying = false;
+                    } else {
+                        bgMusic.volume = 0.3;
+                        bgMusic.play();
+                        isMusicPlaying = true;
+                    }
+                    updateButton();
+                });
+            }
+
+            document.addEventListener('click', function firstClick() {
+                if (!isMusicPlaying && bgMusic) {
+                    bgMusic.volume = 0.3;
+                    bgMusic.play();
                     isMusicPlaying = true;
                     updateButton();
-                }).catch(() => {
-                    isMusicPlaying = false;
-                    updateButton();
-                });
-            }
-            
-            function toggleMusic() {
-                if (isMusicPlaying) {
-                    bgMusic.pause();
-                    isMusicPlaying = false;
-                } else {
-                    playMusic();
                 }
-                updateButton();
-            }
-            
-            if (musicToggle) {
-                musicToggle.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    toggleMusic();
-                });
-            }
-            
-            document.addEventListener('click', function firstClick() {
-                if (!isMusicPlaying && bgMusic) playMusic();
                 document.removeEventListener('click', firstClick);
             }, { once: true });
-            
-            playMusic();
-            
-            // ЗВУКИ И СВЕЧЕНИЕ (ИСПРАВЛЕННОЕ)
+
+            // ЗВУКИ И СВЕЧЕНИЕ
             function playSound(soundName, element) {
-                console.log('🎵 Звук:', soundName);
-                
-                // Сброс предыдущего свечения
-                document.querySelectorAll('.playing').forEach(el => el.classList.remove('playing'));
-                if (glowTimeout) clearTimeout(glowTimeout);
-                
+                console.log('🎵 Клик:', soundName);
+
+                // Убираем свечение со всех
+                document.querySelectorAll('.playing').forEach(el => {
+                    el.classList.remove('playing');
+                });
+                if (glowTimer) clearTimeout(glowTimer);
+
+                // Останавливаем предыдущий звук
                 if (currentAudio) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
                 }
-                
-                const baseUrl = 'https://raw.githubusercontent.com/ififcloud/vbh/main/';
-                const audioUrl = baseUrl + encodeURIComponent(soundName) + '.mp3';
-                
-                currentAudio = new Audio(audioUrl);
-                currentAudio.volume = 0.7;
-                
-                // Включаем свечение СРАЗУ
-                element.classList.add('playing');
-                console.log('✅ Свечение включено');
-                
-                // Функция выключения свечения с задержкой
-                const stopGlow = () => {
-                    // Ждем минимум 2 секунды, чтобы пользователь увидел эффект
-                    glowTimeout = setTimeout(() => {
-                        element.classList.remove('playing');
-                        console.log('⏹️ Свечение выключено');
-                    }, 2000); // 2000 мс = 2 секунды
-                };
 
-                currentAudio.play().then(() => {
-                    console.log('▶️ Звук играет');
-                    // Когда звук закончится естественно
-                    currentAudio.onended = stopGlow;
-                }).catch(error => {
-                    console.warn('⚠️ Ошибка воспроизведения (возможно файла нет), но свечение работает!', error);
-                    // Даже если ошибка - свечение горит 2 секунды
-                    stopGlow();
+                // Включаем ЗЕЛЁНОЕ СВЕЧЕНИЕ СРАЗУ
+                element.classList.add('playing');
+                console.log('✅ СВЕЧЕНИЕ ВКЛЮЧЕНО!');
+
+                // Звук
+                const url = 'https://raw.githubusercontent.com/ififcloud/vbh/main/' + encodeURIComponent(soundName) + '.mp3';
+                currentAudio = new Audio(url);
+                currentAudio.volume = 0.7;
+
+                currentAudio.play().catch(function(err) {
+                    console.log('⚠️ Звук не загрузился, но свечение работает!', err);
+                });
+
+                // Свечение горит МИНИМУМ 3 секунды
+                glowTimer = setTimeout(function() {
+                    element.classList.remove('playing');
+                    console.log('⏹️ Свечение выключено');
+                }, 3000);
+
+                // Если звук закончился раньше - всё равно ждём 3 секунды
+                currentAudio.addEventListener('ended', function() {
+                    console.log('🎵 Звук закончился');
                 });
             }
-            
+
             // ПЕРСОНАЖИ
-            document.querySelectorAll('.character-item').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
+            document.querySelectorAll('.character-item').forEach(function(item) {
+                item.addEventListener('click', function() {
                     const sound = this.getAttribute('data-sound');
                     if (sound) playSound(sound, this);
                 });
             });
-            
+
             // ЛОКАЦИИ
-            document.querySelectorAll('.location-item').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
+            document.querySelectorAll('.location-item').forEach(function(item) {
+                item.addEventListener('click', function() {
                     const sound = this.getAttribute('data-sound');
                     if (sound) playSound(sound, this);
                 });
             });
-            
+
             // СКАЗКА
             fetch('https://raw.githubusercontent.com/ififcloud/vbh/main/01_Lore.txt')
                 .then(r => r.text())
                 .then(text => { storyText.textContent = text; })
-                .catch(() => { storyText.textContent = 'Ошибка загрузки текста...'; });
-            
-            // ПАРАЛЛАКС
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                document.querySelectorAll('section').forEach(sec => {
-                    sec.style.backgroundPositionY = -(scrolled * 0.3) + 'px';
-                });
-            });
-            
-            console.log('💚 Свечение исправлено: теперь горит минимум 2 секунды!');
+                .catch(() => { storyText.textContent = 'Ошибка загрузки...'; });
+
+            console.log('=================================');
+            console.log('💚 КЛИКНИТЕ НА ПЕРСОНАЖА!');
+            console.log('   Свечение будет гореть 3 секунды');
+            console.log('=================================');
         });
     </script>
 
