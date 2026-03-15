@@ -5,25 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Наша Сказка</title>
     <style>
+        /* ============================================
+           БАЗОВЫЕ СТИЛИ
+           ============================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #ffffff;
+            /* ФОНОВОЕ ИЗОБРАЖЕНИЕ */
             background-image: 
                 linear-gradient(rgba(10, 10, 26, 0.85), rgba(10, 10, 26, 0.9)),
                 url('https://raw.githubusercontent.com/ififcloud/vbh/main/%D1%84%D0%BE%D0%BD.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: #ffffff;
+            background-repeat: no-repeat;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
+        /* ============================================
+           СЕКЦИИ
+           ============================================ */
         section {
             padding: 80px 20px;
             min-height: 100vh;
@@ -31,15 +44,50 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         h1 {
             font-size: 3rem;
+            text-align: center;
             margin-bottom: 50px;
             text-transform: uppercase;
             letter-spacing: 4px;
             color: #ffd700;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            text-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.6),
+                0 0 40px rgba(255, 215, 0, 0.4),
+                2px 2px 4px rgba(0, 0, 0, 0.9);
+            position: relative;
+            z-index: 2;
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 215, 0, 0.8), 
+                rgba(255, 215, 0, 1), 
+                rgba(255, 215, 0, 0.8), 
+                transparent
+            );
+            margin: 20px auto 0;
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+
+        /* ============================================
+           БЛОК 1: ПЕРСОНАЖИ
+           ============================================ */
+        .characters {
+            background: linear-gradient(
+                180deg,
+                rgba(15, 15, 35, 0.7) 0%,
+                rgba(15, 15, 35, 0.5) 100%
+            );
         }
 
         .characters-grid {
@@ -48,22 +96,35 @@
             gap: 40px;
             max-width: 1200px;
             width: 100%;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .character-item {
             background: rgba(255, 255, 255, 0.08);
             border: 2px solid rgba(255, 215, 0, 0.4);
             border-radius: 20px;
-            padding: 30px;
+            padding: 30px 25px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
             backdrop-filter: blur(10px);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                inset 0 0 20px rgba(255, 215, 0, 0.05);
+            position: relative;
+            overflow: hidden;
         }
 
         .character-item:hover {
             background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-5px);
+            border-color: rgba(255, 215, 0, 0.7);
+            transform: translateY(-8px);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(255, 215, 0, 0.3),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
         }
 
         .character-item img {
@@ -71,16 +132,48 @@
             height: 160px;
             object-fit: cover;
             border-radius: 50%;
-            border: 4px solid #ffd700;
+            border: 4px solid rgba(255, 215, 0, 0.8);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
             margin-bottom: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .character-item:hover img {
+            border-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(255, 215, 0, 0.4),
+                inset 0 0 30px rgba(255, 215, 0, 0.3);
+            filter: brightness(1.15) saturate(1.15);
+            transform: scale(1.05);
         }
 
         .character-item p {
             font-size: 1.3rem;
             font-weight: bold;
+            text-align: center;
             color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            text-shadow: 
+                0 0 10px rgba(255, 215, 0, 0.5),
+                1px 1px 3px rgba(0, 0, 0, 0.9);
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================
+           БЛОК 2: ЛОКАЦИИ
+           ============================================ */
+        .locations {
+            background: linear-gradient(
+                180deg,
+                rgba(15, 15, 35, 0.5) 0%,
+                rgba(15, 15, 35, 0.7) 100%
+            );
         }
 
         .locations-grid {
@@ -90,6 +183,9 @@
             justify-content: center;
             max-width: 1400px;
             width: 100%;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .location-item {
@@ -102,11 +198,22 @@
             text-align: center;
             backdrop-filter: blur(10px);
             min-width: 200px;
+            max-width: 240px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                inset 0 0 20px rgba(255, 215, 0, 0.05);
+            position: relative;
+            overflow: hidden;
         }
 
         .location-item:hover {
             background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-5px);
+            border-color: rgba(255, 215, 0, 0.7);
+            transform: translateY(-8px);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(255, 215, 0, 0.3),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
         }
 
         .location-item img {
@@ -114,57 +221,117 @@
             height: 180px;
             object-fit: cover;
             border-radius: 15px;
-            border: 3px solid #ffd700;
+            border: 3px solid rgba(255, 215, 0, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
             margin-bottom: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .location-item:hover img {
+            border-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(255, 215, 0, 0.4);
+            filter: brightness(1.15) saturate(1.2);
+            transform: scale(1.05);
         }
 
         .location-item p {
             font-size: 1.2rem;
             font-weight: bold;
+            text-align: center;
             color: #ffffff;
+            text-shadow: 
+                0 0 10px rgba(255, 215, 0, 0.5),
+                1px 1px 3px rgba(0, 0, 0, 0.9);
             text-transform: uppercase;
             letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* 🟢 ЗЕЛЁНОЕ СВЕЧЕНИЕ */
+        /* ============================================
+           🟢 ЗЕЛЁНОЕ СВЕЧЕНИЕ (ПРИ КЛИКЕ)
+           ============================================ */
         .character-item.playing {
             border: 4px solid #00ff88 !important;
-            box-shadow: 0 0 60px #00ff88, inset 0 0 30px rgba(0, 255, 136, 0.3) !important;
+            box-shadow: 
+                0 0 60px #00ff88,
+                0 0 100px #00ff88,
+                inset 0 0 40px rgba(0, 255, 136, 0.3) !important;
             background: rgba(0, 255, 136, 0.25) !important;
             animation: greenGlow 1s ease-in-out infinite !important;
         }
 
         .character-item.playing img {
             border: 5px solid #00ff88 !important;
-            box-shadow: 0 0 40px #00ff88 !important;
-            filter: brightness(1.2) !important;
+            box-shadow: 
+                0 0 50px #00ff88,
+                inset 0 0 30px rgba(0, 255, 136, 0.3) !important;
+            filter: brightness(1.25) !important;
+        }
+
+        .character-item.playing p {
+            color: rgba(0, 255, 136, 1) !important;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.8) !important;
         }
 
         .location-item.playing {
             border: 4px solid #00ff88 !important;
-            box-shadow: 0 0 60px #00ff88, inset 0 0 30px rgba(0, 255, 136, 0.3) !important;
+            box-shadow: 
+                0 0 60px #00ff88,
+                0 0 100px #00ff88,
+                inset 0 0 40px rgba(0, 255, 136, 0.3) !important;
             background: rgba(0, 255, 136, 0.25) !important;
             animation: greenGlow 1s ease-in-out infinite !important;
         }
 
         .location-item.playing img {
             border: 5px solid #00ff88 !important;
-            box-shadow: 0 0 40px #00ff88 !important;
-            filter: brightness(1.2) !important;
+            box-shadow: 
+                0 0 50px #00ff88,
+                inset 0 0 30px rgba(0, 255, 136, 0.3) !important;
+            filter: brightness(1.25) !important;
+        }
+
+        .location-item.playing p {
+            color: rgba(0, 255, 136, 1) !important;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.8) !important;
         }
 
         @keyframes greenGlow {
             0%, 100% {
-                box-shadow: 0 0 50px #00ff88, inset 0 0 25px rgba(0, 255, 136, 0.2) !important;
+                box-shadow: 
+                    0 0 50px #00ff88,
+                    0 0 80px #00ff88,
+                    inset 0 0 30px rgba(0, 255, 136, 0.2) !important;
             }
             50% {
-                box-shadow: 0 0 90px #00ff88, inset 0 0 45px rgba(0, 255, 136, 0.4) !important;
+                box-shadow: 
+                    0 0 90px #00ff88,
+                    0 0 140px #00ff88,
+                    inset 0 0 60px rgba(0, 255, 136, 0.4) !important;
             }
+        }
+
+        /* ============================================
+           БЛОК 3: СКАЗКА
+           ============================================ */
+        .story {
+            background: linear-gradient(
+                180deg,
+                rgba(15, 15, 35, 0.7) 0%,
+                rgba(10, 10, 26, 0.9) 100%
+            );
+            min-height: auto;
+            padding: 100px 20px;
         }
 
         .story-content {
             max-width: 900px;
+            width: 100%;
             background: rgba(255, 255, 255, 0.08);
             padding: 60px 50px;
             border-radius: 25px;
@@ -173,16 +340,30 @@
             font-size: 1.15rem;
             white-space: pre-wrap;
             backdrop-filter: blur(10px);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+            box-shadow: 
+                0 25px 80px rgba(0, 0, 0, 0.6),
+                inset 0 0 50px rgba(255, 215, 0, 0.05);
+            position: relative;
+            z-index: 1;
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
         }
 
+        .story-content p {
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+
+        /* ============================================
+           КНОПКА УПРАВЛЕНИЯ МУЗЫКОЙ
+           ============================================ */
         .music-btn {
             position: fixed;
             bottom: 30px;
             right: 30px;
             padding: 15px 30px;
             background: rgba(255, 215, 0, 0.25);
-            border: 3px solid #ffd700;
+            border: 3px solid rgba(255, 215, 0, 0.7);
             border-radius: 30px;
             color: #ffffff;
             font-size: 1.1rem;
@@ -193,48 +374,218 @@
             align-items: center;
             gap: 12px;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            outline: none;
         }
 
         .music-btn:hover {
             background: rgba(255, 215, 0, 0.4);
-            transform: scale(1.05);
+            border-color: rgba(255, 215, 0, 1);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 35px rgba(255, 215, 0, 0.5);
+        }
+
+        .music-btn:active {
+            transform: translateY(0) scale(0.98);
         }
 
         .music-btn.active {
             background: rgba(0, 255, 136, 0.3);
-            border-color: #00ff88;
+            border-color: rgba(0, 255, 136, 0.7);
         }
 
         .music-btn.active .btn-icon {
             animation: musicPulse 1s ease-in-out infinite;
         }
 
+        .music-btn .btn-icon {
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
         @keyframes musicPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: scale(1.3);
+                opacity: 0.8;
+            }
         }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .character-item img { width: 120px; height: 120px; }
-            .music-btn .btn-text { display: none; }
+        .music-btn.muted {
+            background: rgba(255, 80, 80, 0.25);
+            border-color: rgba(255, 80, 80, 0.7);
         }
 
-        @media (max-width: 480px) {
-            .characters-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .music-btn.muted:hover {
+            background: rgba(255, 80, 80, 0.4);
+            border-color: rgba(255, 80, 80, 1);
+            box-shadow: 0 8px 35px rgba(255, 80, 80, 0.5);
+        }
+
+        /* ============================================
+           АДАПТИВНОСТЬ
+           ============================================ */
+        @media screen and (max-width: 1024px) {
+            h1 { font-size: 2.5rem; }
+            .characters-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 30px; }
+            .character-item img { width: 140px; height: 140px; }
+            .locations-grid { gap: 20px; }
+            .location-item { min-width: 180px; max-width: 210px; }
+            .location-item img { height: 160px; }
+        }
+
+        @media screen and (max-width: 768px) {
+            h1 { font-size: 2rem; margin-bottom: 40px; letter-spacing: 3px; }
+            section { padding: 60px 15px; }
+            .characters-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 25px; }
+            .character-item { padding: 20px 15px; }
+            .character-item img { width: 120px; height: 120px; border-width: 3px; }
+            .character-item p { font-size: 1.1rem; }
+            .locations-grid { gap: 15px; }
+            .location-item { min-width: 160px; max-width: 190px; padding: 15px; }
+            .location-item img { height: 140px; }
+            .location-item p { font-size: 1rem; }
+            .story-content { padding: 45px 30px; font-size: 1.05rem; line-height: 2; }
+            .music-btn { bottom: 20px; right: 20px; padding: 12px 20px; }
+        }
+
+        @media screen and (max-width: 480px) {
+            h1 { font-size: 1.7rem; letter-spacing: 2px; }
+            h1::after { width: 90px; height: 2px; }
+            section { padding: 50px 12px; }
+            .characters-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+            .character-item { padding: 16px 12px; border-radius: 16px; }
+            .character-item img { width: 110px; height: 110px; margin-bottom: 12px; }
+            .character-item p { font-size: 0.95rem; letter-spacing: 1px; }
             .locations-grid { flex-direction: column; align-items: center; }
-            .location-item { min-width: 260px; max-width: 320px; }
+            .location-item { min-width: 260px; max-width: 320px; width: 100%; }
+            .location-item img { height: 180px; }
+            .story-content { padding: 35px 22px; font-size: 0.98rem; line-height: 1.95; border-width: 2px; }
+            .music-btn .btn-text { display: none; }
+            .music-btn .btn-icon { font-size: 1.6rem; }
         }
+
+        /* ============================================
+           СКРОЛЛБАР
+           ============================================ */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(10, 10, 26, 0.9);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, 
+                rgba(255, 215, 0, 0.8), 
+                rgba(255, 140, 0, 0.8)
+            );
+            border-radius: 6px;
+            border: 2px solid rgba(10, 10, 26, 0.9);
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, 
+                rgba(255, 140, 0, 0.9), 
+                rgba(255, 215, 0, 0.9)
+            );
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+
+        /* ============================================
+           ЗАГРУЗКА
+           ============================================ */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            font-size: 1.25rem;
+            color: rgba(255, 215, 0, 0.9);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            animation: loadingPulse 1.5s infinite;
+        }
+
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ============================================
+           ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ
+           ============================================ */
+        .characters::after,
+        .locations::after {
+            content: '✦';
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.8rem;
+            color: rgba(255, 215, 0, 0.4);
+            animation: starPulse 4s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        @keyframes starPulse {
+            0%, 100% { 
+                opacity: 0.4; 
+                transform: translateX(-50%) scale(1);
+            }
+            50% { 
+                opacity: 0.8; 
+                transform: translateX(-50%) scale(1.2);
+            }
+        }
+
+        /* ============================================
+           АНИМАЦИИ ПОЯВЛЕНИЯ
+           ============================================ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .character-item,
+        .location-item {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .character-item:nth-child(1) { animation-delay: 0.1s; }
+        .character-item:nth-child(2) { animation-delay: 0.2s; }
+        .character-item:nth-child(3) { animation-delay: 0.3s; }
+        .character-item:nth-child(4) { animation-delay: 0.4s; }
+        .character-item:nth-child(5) { animation-delay: 0.5s; }
+
+        .location-item:nth-child(1) { animation-delay: 0.1s; }
+        .location-item:nth-child(2) { animation-delay: 0.2s; }
+        .location-item:nth-child(3) { animation-delay: 0.3s; }
+        .location-item:nth-child(4) { animation-delay: 0.4s; }
+        .location-item:nth-child(5) { animation-delay: 0.5s; }
     </style>
 </head>
 <body>
 
+    <!-- Фоновая музыка -->
     <audio id="bg-music" loop>
         <source src="https://raw.githubusercontent.com/ififcloud/vbh/main/action.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- БЛОК 1: ПЕРСОНАЖИ -->
+    <!-- ============================================
+         БЛОК 1: ПЕРСОНАЖИ
+         ============================================ -->
     <section class="characters" id="characters">
         <h1>Персонажи</h1>
         <div class="characters-grid">
@@ -261,7 +612,9 @@
         </div>
     </section>
 
-    <!-- БЛОК 2: ЛОКАЦИИ -->
+    <!-- ============================================
+         БЛОК 2: ЛОКАЦИИ
+         ============================================ -->
     <section class="locations" id="locations">
         <h1>Локации</h1>
         <div class="locations-grid">
@@ -288,82 +641,138 @@
         </div>
     </section>
 
-    <!-- БЛОК 3: СКАЗКА -->
+    <!-- ============================================
+         БЛОК 3: СКАЗКА
+         ============================================ -->
     <section class="story" id="story">
         <h1>Наша Сказка</h1>
         <div class="story-content" id="story-text">Загрузка текста сказки...</div>
     </section>
 
-    <!-- КНОПКА МУЗЫКИ -->
-    <button id="music-toggle" class="music-btn">
+    <!-- КНОПКА УПРАВЛЕНИЯ МУЗЫКОЙ -->
+    <button id="music-toggle" class="music-btn" title="Включить/выключить музыку">
         <span class="btn-icon">🔇</span>
         <span class="btn-text">Музыка</span>
     </button>
 
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            
+            console.log('=================================');
+            console.log('✨ ЗАГРУЗКА САЙТА "НАША СКАЗКА" ✨');
+            console.log('=================================');
+            
+            // ПЕРЕМЕННЫЕ
             const bgMusic = document.getElementById('bg-music');
             const musicToggle = document.getElementById('music-toggle');
             const storyText = document.getElementById('story-text');
+            const characterItems = document.querySelectorAll('.character-item');
+            const locationItems = document.querySelectorAll('.location-item');
+            
             let currentAudio = null;
             let isMusicPlaying = false;
-
-            console.log('✨ Сайт "Наша Сказка" загружен');
-
+            
+            console.log('📋 Элементы:');
+            console.log('  - Музыка:', bgMusic ? '✅' : '❌');
+            console.log('  - Кнопка:', musicToggle ? '✅' : '❌');
+            console.log('  - Персонажей:', characterItems.length);
+            console.log('  - Локаций:', locationItems.length);
+            
             // КНОПКА МУЗЫКИ
             function updateButton() {
                 if (!musicToggle) return;
                 const icon = musicToggle.querySelector('.btn-icon');
                 if (isMusicPlaying) {
                     musicToggle.classList.add('active');
+                    musicToggle.classList.remove('muted');
                     icon.textContent = '🎵';
+                    musicToggle.title = 'Выключить музыку';
                 } else {
                     musicToggle.classList.remove('active');
+                    musicToggle.classList.add('muted');
                     icon.textContent = '🔇';
+                    musicToggle.title = 'Включить музыку';
                 }
             }
-
-            if (musicToggle) {
-                musicToggle.addEventListener('click', function() {
-                    if (!bgMusic) return;
-                    if (isMusicPlaying) {
-                        bgMusic.pause();
-                        isMusicPlaying = false;
-                    } else {
-                        bgMusic.volume = 0.3;
-                        bgMusic.play();
-                        isMusicPlaying = true;
-                    }
+            
+            function playMusic() {
+                if (!bgMusic) return;
+                bgMusic.volume = 0.3;
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    updateButton();
+                    console.log('▶️ Музыка играет');
+                }).catch(error => {
+                    console.log('⚠️ Автовоспроизведение заблокировано');
+                    isMusicPlaying = false;
                     updateButton();
                 });
             }
-
+            
+            function pauseMusic() {
+                if (!bgMusic) return;
+                bgMusic.pause();
+                isMusicPlaying = false;
+                updateButton();
+                console.log('⏸️ Музыка остановлена');
+            }
+            
+            function toggleMusic() {
+                if (isMusicPlaying) {
+                    pauseMusic();
+                } else {
+                    playMusic();
+                }
+            }
+            
+            if (musicToggle) {
+                musicToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleMusic();
+                });
+                console.log('✅ Кнопка активна');
+            }
+            
+            // Автозапуск при первом клике
             document.addEventListener('click', function firstClick() {
                 if (!isMusicPlaying && bgMusic) {
-                    bgMusic.volume = 0.3;
-                    bgMusic.play();
-                    isMusicPlaying = true;
-                    updateButton();
+                    playMusic();
                 }
                 document.removeEventListener('click', firstClick);
             }, { once: true });
-
-            // ЗВУКИ И ЗЕЛЁНОЕ СВЕЧЕНИЕ
+            
+            // Запуск при загрузке
+            playMusic();
+            
+            // ЗВУКИ И СВЕЧЕНИЕ
             function playSound(soundName, element) {
-                document.querySelectorAll('.playing').forEach(el => el.classList.remove('playing'));
+                console.log('🎵 Звук:', soundName);
                 
+                // Убираем свечение
+                document.querySelectorAll('.playing').forEach(el => {
+                    el.classList.remove('playing');
+                });
+                
+                // Останавливаем предыдущий звук
                 if (currentAudio) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
                 }
                 
-                const url = 'https://raw.githubusercontent.com/ififcloud/vbh/main/' + encodeURIComponent(soundName) + '.mp3';
-                currentAudio = new Audio(url);
+                // URL аудио
+                const baseUrl = 'https://raw.githubusercontent.com/ififcloud/vbh/main/';
+                const audioUrl = baseUrl + encodeURIComponent(soundName) + '.mp3';
+                
+                currentAudio = new Audio(audioUrl);
                 currentAudio.volume = 0.7;
                 
                 currentAudio.play().then(() => {
                     element.classList.add('playing');
-                    console.log('✅ Зелёное свечение включено!');
+                    console.log('✅ СВЕЧЕНИЕ ВКЛЮЧЕНО!');
                 }).catch(error => {
                     console.error('❌ Ошибка:', error);
                 });
@@ -371,43 +780,82 @@
                 currentAudio.addEventListener('ended', () => {
                     element.classList.remove('playing');
                     currentAudio = null;
+                    console.log('🏁 Звук завершён');
+                });
+                
+                currentAudio.addEventListener('error', (e) => {
+                    console.error('❌ Ошибка загрузки:', e);
+                    element.classList.remove('playing');
                 });
             }
-
+            
             // ПЕРСОНАЖИ
-            document.querySelectorAll('.character-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const sound = this.getAttribute('data-sound');
-                    if (sound) playSound(sound, this);
+            characterItems.forEach(function(item) {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const soundName = this.getAttribute('data-sound');
+                    if (soundName) {
+                        playSound(soundName, this);
+                    }
                 });
+                item.style.cursor = 'pointer';
             });
-
+            console.log('✅ Персонажи:', characterItems.length);
+            
             // ЛОКАЦИИ
-            document.querySelectorAll('.location-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const sound = this.getAttribute('data-sound');
-                    if (sound) playSound(sound, this);
+            locationItems.forEach(function(item) {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const soundName = this.getAttribute('data-sound');
+                    if (soundName) {
+                        playSound(soundName, this);
+                    }
+                });
+                item.style.cursor = 'pointer';
+            });
+            console.log('✅ Локации:', locationItems.length);
+            
+            // СКАЗКА
+            function loadStory() {
+                console.log('📖 Загрузка сказки...');
+                fetch('https://raw.githubusercontent.com/ififcloud/vbh/main/01_Lore.txt')
+                    .then(response => {
+                        if (!response.ok) throw new Error('Файл не найден');
+                        return response.text();
+                    })
+                    .then(text => {
+                        storyText.textContent = text;
+                        console.log('✅ Сказка загружена');
+                    })
+                    .catch(error => {
+                        console.error('❌ Ошибка:', error);
+                        storyText.textContent = 'Текст сказки загружается...';
+                    });
+            }
+            loadStory();
+            
+            // ПАРАЛЛАКС
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                document.querySelectorAll('section').forEach(section => {
+                    section.style.backgroundPositionY = -(scrolled * 0.3) + 'px';
                 });
             });
-
-            // СКАЗКА
-            fetch('https://raw.githubusercontent.com/ififcloud/vbh/main/01_Lore.txt')
-                .then(response => response.text())
-                .then(text => {
-                    storyText.textContent = text;
-                })
-                .catch(error => {
-                    storyText.textContent = 'Ошибка загрузки текста...';
-                });
-
+            
+            // ФИНАЛ
+            console.log('=================================');
+            console.log('✨ САЙТ ГОТОВ ✨');
             console.log('=================================');
             console.log('🎵 Музыка:', bgMusic ? 'Подключена' : 'Нет');
             console.log('🔘 Кнопка:', musicToggle ? 'Работает' : 'Ошибка');
             console.log('💚 Свечение:', 'Активно');
-            console.log('👥 Персонажей:', document.querySelectorAll('.character-item').length);
-            console.log('🗺️ Локаций:', document.querySelectorAll('.location-item').length);
+            console.log('👥 Персонажей:', characterItems.length);
+            console.log('🗺️ Локаций:', locationItems.length);
             console.log('=================================');
-            console.log('💡 КЛИКНИТЕ НА ПЕРСОНАЖА - БУДЕТ СВЕЧЕНИЕ!');
+            console.log('💡 КЛИКНИТЕ НА ПЕРСОНАЖА ИЛИ ЛОКАЦИЮ');
+            console.log('   - появится ЗЕЛЁНОЕ СВЕЧЕНИЕ! 💚');
             console.log('=================================');
         });
     </script>
